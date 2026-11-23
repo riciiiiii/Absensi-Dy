@@ -1,0 +1,91 @@
+/* Styling Utama Halaman Web Absensi */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f6;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  color: #2c3e50;
+  margin-top: 0;
+  font-size: 24px;
+  border-bottom: 2px solid #eaeaea;
+  padding-bottom: 12px;
+}
+
+.info-kelas {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+  background: #eef2f7;
+  padding: 10px 15px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* Desain Tabel Absensi */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+th {
+  background-color: #3498db;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9fbfb;
+}
+
+tr:hover {
+  background-color: #f1f4f6;
+}
+
+td {
+  border-bottom: 1px solid #e1e8ed;
+  font-size: 15px;
+}
+
+/* Status Hadir / Tidak Hadir */
+.status-hadir {
+  color: #27ae60;
+  font-weight: bold;
+  background: #e8f8f0;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.status-tidak {
+  color: #c0392b;
+  font-weight: bold;
+  background: #fdeede;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}

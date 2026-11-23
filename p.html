@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Absensi Kelas 11A - Real Time</title>
+  <link rel="stylesheet" href="c.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Absensi kelas 11 SMA Dy</h2>
+    <div class="info-kelas">Kelas: <strong>11A</strong></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Waktu</th>
+          <th>UID Kartu</th>
+          <th>Nama Siswa</th>
+          <th>Status Kehadiran</th>
+        </tr>
+      </thead>
+      <tbody id="tabelAbsensi">
+        <tr>
+          <td colspan="4" style="text-align: center;">Menunggu data absensi...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDHhCRpLRPrhl5cfISdYTZIJJsAs3nFaN4",
+      authDomain: "tik-final.firebaseapp.com",
+      databaseURL: "https://tik-final-default-rtdb.firebaseio.com/",
+      projectId: "tik-final",
+      storageBucket: "tik-final.firebasestorage.app",
+      messagingSenderId: "443993157495",
+      appId: "1:443993157495:web:1ba0137bb40976e7163b72",
+      measurementId: "G-ZMLELDS45C"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const tbody = document.getElementById("tabelAbsensi");
+    const absensiRef = ref(db, "absensi");
+
+    onValue(absensiRef, (snapshot) => {
+      const data = snapshot.val();
+      tbody.innerHTML = "";
+
+      if (!data) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" style="text-align: center;">Belum ada data absensi.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      const rows = Object.values(data);
+      rows.forEach((item) => {
+        const tr = document.createElement("tr");
+        const isHadir = item.status === "Hadir";
+        const statusClass = isHadir ? "status-hadir" : "status-tidak";
+
+        tr.innerHTML = `
+          <td>${item.waktu ?? "-"}</td>
+          <td>${item.uid ?? "-"}</td>
+          <td>${item.nama ?? "-"}</td>
+          <td class="${statusClass}">${item.status ?? "-"}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }, (error) => {
+      console.error("Gagal membaca data Firebase:", error);
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="4" style="text-align: center; color: red;">Gagal memuat data dari Firebase.</td>
+        </tr>
+      `;
+    });
+  </script>
+</body>
+</html>
